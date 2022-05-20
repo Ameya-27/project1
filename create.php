@@ -33,7 +33,7 @@ include "master/db_conn.php";
                                         <img class="img-fluid" alt="" src="assets/images/logo/logo.png">
                                         <h2 class="m-b-0">Register</h2>
                                     </div>
-                                    <form action="insert.php" method="POST">
+                                    <form action="insert.php" method="POST" id = "form">
                                         <?php if (isset($_GET['error'])) { ?>
                                             <div class="alert alert-danger" role="alert">
                                                 <?= $_GET['error'] ?>
@@ -59,11 +59,11 @@ include "master/db_conn.php";
                                             <select class="form-control" id="dept" name="dept">
                                                 <option value="" disabled selected hidden>Please Select</option>
                                                 <?php
-                                                $sql = "SELECT dept_name FROM dept_master WHERE is_deleted = 0 ORDER BY dept_id ASC ";
+                                                $sql = "SELECT dept_id,dept_name FROM dept_master WHERE is_deleted = 0 ORDER BY dept_id ASC ";
                                                 $result = mysqli_query($conn, $sql);
                                                 while ($row = $result->fetch_assoc()) :
                                                 ?>
-                                                    <option value="<?php echo $row['dept_name']; ?>"> <?php echo $row['dept_name']; ?></option>
+                                                    <option value="<?php echo $row['dept_id']; ?>"> <?php echo $row['dept_name']; ?></option>
                                                 <?php
                                                 endwhile;
                                                 ?>
@@ -72,10 +72,10 @@ include "master/db_conn.php";
                                         <div class="form-group">
                                             <label class="font-weight-semibold" for="is_manager">Is Manager?</label>&nbsp;
                                             <!--<div class="input-affix">-->
-                                                <input type="radio" id="is_manager" name="is_manager">
-                                                <label for="is_manager"> Yes </label>&nbsp;
-                                                <input type="radio" id="is_manager" name="is_manager">
-                                                <label for="is_manager"> No </label>
+                                            <input type="radio" id="is_manager" name="is_manager" value="yes">
+                                            <label for="is_manager"> yes </label>&nbsp;
+                                            <input type="radio" id="is_manager" name="is_manager" value="no">
+                                            <label for="is_manager"> no </label>
                                             <!--</div>-->
                                         </div>
                                         <div class="form-group">
@@ -83,11 +83,11 @@ include "master/db_conn.php";
                                             <select class="form-control" id="manager" name="manager">
                                                 <option value="" disabled selected hidden>Please Select</option>
                                                 <?php
-                                                $sql = "SELECT name FROM user_master WHERE is_manager = 1 ORDER BY user_master_id ASC ";
+                                                $sql = "SELECT name,user_master_id FROM user_master WHERE is_manager = 1 ORDER BY user_master_id ASC ";
                                                 $result = mysqli_query($conn, $sql);
                                                 while ($row = $result->fetch_assoc()) :
                                                 ?>
-                                                    <option value="<?php echo $row['name']; ?>"> <?php echo $row['name']; ?></option>
+                                                    <option value="<?php echo $row['user_master_id']; ?>"> <?php echo $row['name']; ?></option>
                                                 <?php
                                                 endwhile;
                                                 ?>
@@ -110,7 +110,7 @@ include "master/db_conn.php";
                                         </div>
                                         <div class="form-group">
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <button class="btn btn-primary">Submit</button>
+                                                <button class="btn btn-primary" name="submit" value="submit">Submit</button>
                                             </div>
                                         </div>
                                     </form>
@@ -133,7 +133,7 @@ include "master/db_conn.php";
             </div>
         </div>
     </div>
-
+    
 
     <!-- Core Vendors JS -->
     <script src="assets/js/vendors.min.js"></script>
